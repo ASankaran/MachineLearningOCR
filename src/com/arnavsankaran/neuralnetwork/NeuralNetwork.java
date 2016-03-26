@@ -37,7 +37,7 @@ public class NeuralNetwork {
 		int predictedPosition = 0;
 		int predictedWeight = 0;
 		for(int i = 0; i < weights.length; i++) {
-			if(weights[i] < predictedWeight) {
+			if(weights[i] > predictedWeight) {
 				predictedWeight = weights[i];
 				predictedPosition = i;
 			}
