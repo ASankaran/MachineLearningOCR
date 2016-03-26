@@ -8,6 +8,11 @@ public class NeuralNetwork {
 	
 	public NeuralNetwork() {
 		neuralnetwork = new Neuron[Configuration.sizeX][Configuration.sizeY];
+		for(int i = 0; i < neuralnetwork.length; i++) {
+			for(int j = 0; j < neuralnetwork[i].length; j++) {
+				neuralnetwork[i][j] = new Neuron();
+			}
+		}
 	}
 	
 	public void addTrainingNetworkData(int position, boolean[][] pixelValue) {
