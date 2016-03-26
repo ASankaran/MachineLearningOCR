@@ -10,13 +10,21 @@ public class NeuralNetwork {
 		neuralnetwork = new Neuron[Configuration.sizeX][Configuration.sizeY];
 	}
 	
+	public void addTrainingNetworkData(int position, boolean[][] pixelValue) {
+		for(int i = 0; i < neuralnetwork.length; i++) {
+			for(int j = 0; j < neuralnetwork[i].length; j++) {
+				neuralnetwork[i][j].addTrainingData(position, pixelValue[i][j]);
+			}
+		}
+	}
+	
 	public Prediction getNetworkPrediction(boolean[][] pixelValues) {
 		if(pixelValues.length != Configuration.sizeY || pixelValues[0].length != Configuration.sizeX) {
 			return null;
 		}
 		int[] weights = new int[Configuration.inputCharacters.length];
 		for(int i = 0; i < neuralnetwork.length; i++) {
-			for(int j = 0; j < neuralnetwork[j].length; j++) {
+			for(int j = 0; j < neuralnetwork[i].length; j++) {
 				Prediction neuronPrediction = neuralnetwork[i][j].getPrediction(pixelValues[i][j]);
 				weights[neuronPrediction.position] += neuronPrediction.weight;
 			}
