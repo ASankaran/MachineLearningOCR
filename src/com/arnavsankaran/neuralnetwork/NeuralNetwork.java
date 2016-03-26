@@ -15,6 +15,14 @@ public class NeuralNetwork {
 		}
 	}
 	
+	public void resetNetworkValues() {
+		for(int i = 0; i < neuralnetwork.length; i++) {
+			for(int j = 0; j < neuralnetwork[i].length; j++) {
+				neuralnetwork[i][j].resetNeuronValue();
+			}
+		}
+	}
+	
 	public void addTrainingNetworkData(int position, boolean[][] pixelValue) {
 		for(int i = 0; i < neuralnetwork.length; i++) {
 			for(int j = 0; j < neuralnetwork[i].length; j++) {
