@@ -19,15 +19,28 @@ public class Neuron {
 	public void addTrainingData(int position, boolean pixelValue) {
 		Prediction neuronPrediction = getPrediction(pixelValue);
 		if(neuronPrediction.position != position) {
-			characterProbabilities[position] += 2;
-			for(int i = 0; i < characterProbabilities.length; i++) {
-				characterProbabilities[i] -= 1;
-				if(characterProbabilities[i] < 0) {
-					characterProbabilities[i] = 0;
+			if(pixelValue) {
+				characterProbabilities[position] += 2;
+				for(int i = 0; i < characterProbabilities.length; i++) {
+					characterProbabilities[i] -= 1;
+					if(characterProbabilities[i] < 0) {
+						characterProbabilities[i] = 0;
+					}
 				}
-			}
-			if(characterProbabilities[position] > 255) {
-				characterProbabilities[position] = 255;
+				if(characterProbabilities[position] > 255) {
+					characterProbabilities[position] = 255;
+				}
+			} else {
+				characterProbabilities[position] -= 2;
+				for(int i = 0; i < characterProbabilities.length; i++) {
+					characterProbabilities[i] += 1;
+					if(characterProbabilities[i] > 255) {
+						characterProbabilities[i] = 255;
+					}
+				}
+				if(characterProbabilities[position] < 0) {
+					characterProbabilities[position] = 0;
+				}
 			}
 		}
 	}
