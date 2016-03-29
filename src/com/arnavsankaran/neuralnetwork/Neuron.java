@@ -36,7 +36,9 @@ public class Neuron {
 		int positionOne = 0;
 		int positionTwo = 0;
 		if(pixelValue) {
-			for (int i = 0; i < characterProbabilities.length; i++) {
+			positionOne = characterProbabilities[0] > characterProbabilities[1] ? 0 : 1;
+			positionTwo = characterProbabilities[0] > characterProbabilities[1] ? 1 : 0;
+			for (int i = 2; i < characterProbabilities.length; i++) {
 				if(characterProbabilities[i] > characterProbabilities[positionOne]) {
 					positionTwo = positionOne;
 					positionOne = i;
@@ -45,7 +47,9 @@ public class Neuron {
 				}
 			}
 		} else {
-			for (int i = 0; i < characterProbabilities.length; i++) {
+			positionOne = characterProbabilities[0] < characterProbabilities[1] ? 0 : 1;
+			positionTwo = characterProbabilities[0] < characterProbabilities[1] ? 1 : 0;
+			for (int i = 2; i < characterProbabilities.length; i++) {
 				if(characterProbabilities[i] < characterProbabilities[positionOne]) {
 					positionTwo = positionOne;
 					positionOne = i;
