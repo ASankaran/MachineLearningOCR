@@ -20,29 +20,25 @@ public class Neuron {
 		Prediction neuronPrediction = getPrediction(pixelValue);
 		if(neuronPrediction.position != position) {
 			if(pixelValue) {
-				characterProbabilities[position] += 2;
-				for(int i = 0; i < characterProbabilities.length; i++) {
-					characterProbabilities[i] -= 1;
-					if(characterProbabilities[i] < 0) {
-						characterProbabilities[i] = 0;
-					}
-				}
+				characterProbabilities[position] += 1;
 				if(characterProbabilities[position] > 255) {
 					characterProbabilities[position] = 255;
 				}
-			} else {
-				characterProbabilities[position] -= 2;
-				for(int i = 0; i < characterProbabilities.length; i++) {
-					characterProbabilities[i] += 1;
-					if(characterProbabilities[i] > 255) {
-						characterProbabilities[i] = 255;
-					}
+				characterProbabilities[neuronPrediction.position] -= 1;
+				if(characterProbabilities[neuronPrediction.position] < 0) {
+					characterProbabilities[neuronPrediction.position] = 0;
 				}
+			} else {
+				characterProbabilities[position] -= 1;
 				if(characterProbabilities[position] < 0) {
 					characterProbabilities[position] = 0;
 				}
+				characterProbabilities[neuronPrediction.position] += 1;
+				if(characterProbabilities[neuronPrediction.position] > 255) {
+					characterProbabilities[neuronPrediction.position] = 255;
+				}
 			}
-		}
+		}		
 	}
 	
 	public Prediction getPrediction(boolean pixelValue) {
@@ -71,7 +67,15 @@ public class Neuron {
 				}
 			}
 		}
-		return new Prediction(positionOne, Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]));
+		if(Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]) < 5) {
+			return new Prediction(positionOne, 0);
+		} else {
+			return new Prediction(positionOne, Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]));
+		}
+	}
+	
+	public int[] getCharacterProbabilities() {
+		return characterProbabilities;
 	}
 
 }

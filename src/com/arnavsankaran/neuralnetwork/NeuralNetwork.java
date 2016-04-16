@@ -52,5 +52,9 @@ public class NeuralNetwork {
 		}
 		return new Prediction(predictedPosition, predictedWeight);
 	}
+	
+	public Neuron[][] getNeurons() {
+		return neuralnetwork;
+	}
 
 }
