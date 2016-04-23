@@ -27,9 +27,7 @@ public class Preprocessor {
 		this.fileLocation = fileLocation;
 		source =  Imgcodecs.imread(fileLocation);
 		processImage();
-		Mat scaled = new Mat(Configuration.sizeX, Configuration.sizeY, source.type());
-		Imgproc.resize(source, scaled, new Size(Configuration.sizeX, Configuration.sizeY));
-		source = scaled;
+		source = scaleWithAspectRatio(source, Configuration.sizeX, Configuration.sizeY);
 	}
 	
 	public void processImage() {
@@ -46,8 +44,35 @@ public class Preprocessor {
 	        }
 	    }
 		Rect rect = Imgproc.boundingRect(contours.get(largestContour));
-        Imgproc.rectangle(source, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 255));
         source = source.submat(rect);
+	}
+	
+	public static Mat scaleWithAspectRatio(Mat source, int sizeX, int sizeY) {
+		Mat scaled = new Mat(sizeX, sizeY, source.type());
+		for(int i = 0; i < scaled.rows(); i++) {
+			for (int j = 0; j <scaled.cols(); j++) {
+				scaled.put(i, j, new double[] {255, 255, 255} );
+			}
+		}
+		
+		int largerSize = Integer.max(source.cols(), source.rows());
+		double scaleFactor = (double) sizeX / (double)largerSize;
+		Rect area = new Rect();
+		
+		if(source.cols() > source.rows()) {
+			area.width = sizeX;
+			area.x = 0;
+			area.height = (int) (source.rows() * scaleFactor);
+			area.y = (sizeX - area.height) / 2;
+		} else {
+			area.y = 0;
+			area.height = sizeY;
+			area.width = (int) (source.cols() * scaleFactor);
+			area.x = (sizeY - area.width) / 2;
+		}
+		
+		Imgproc.resize(source, scaled.submat(area), new Size(area.width, area.height));
+		return scaled;
 	}
 	
 	public boolean[][] getImageAsBooleanMap() {

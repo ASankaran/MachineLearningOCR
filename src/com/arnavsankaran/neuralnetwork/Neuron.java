@@ -67,7 +67,7 @@ public class Neuron {
 				}
 			}
 		}
-		if(Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]) < 5) {
+		if(Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]) < 15) {
 			return new Prediction(positionOne, 0);
 		} else {
 			return new Prediction(positionOne, Math.abs(characterProbabilities[positionOne] - characterProbabilities[positionTwo]));
