@@ -74,6 +74,10 @@ public class Neuron {
 		}
 	}
 	
+	public void loadCharacterProbabilities(int[] data) {
+		characterProbabilities = data;
+	}
+	
 	public int[] getCharacterProbabilities() {
 		return characterProbabilities;
 	}

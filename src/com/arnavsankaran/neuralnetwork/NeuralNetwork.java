@@ -1,6 +1,7 @@
 package com.arnavsankaran.neuralnetwork;
 
 import com.arnavsankaran.configuration.Configuration;
+import com.arnavsankaran.util.NetworkFileParser;
 
 public class NeuralNetwork {
 	
@@ -51,6 +52,17 @@ public class NeuralNetwork {
 			}
 		}
 		return new Prediction(predictedPosition, predictedWeight);
+	}
+	
+	public void loadNeuronData(String filepath) {
+		int[][] neuronData = new NetworkFileParser(filepath).getNetworkData();
+		int k = 0;
+		for(int i = 0; i < neuralnetwork.length; i++) {
+			for(int j = 0; j < neuralnetwork[i].length; j++) {
+				neuralnetwork[i][j].loadCharacterProbabilities(neuronData[k]);
+				k++;
+			}
+		}
 	}
 	
 	public Neuron[][] getNeurons() {
