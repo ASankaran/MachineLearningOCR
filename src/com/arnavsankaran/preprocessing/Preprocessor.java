@@ -16,7 +16,7 @@ import com.arnavsankaran.configuration.Configuration;
 
 public class Preprocessor {
 	
-	private String fileLocation;
+	protected String fileLocation;
 	private Mat source;
 	
 	static {
@@ -28,6 +28,12 @@ public class Preprocessor {
 		source =  Imgcodecs.imread(fileLocation);
 		processImage();
 		source = scaleWithAspectRatio(source, Configuration.sizeX, Configuration.sizeY);
+	}
+	
+	public Preprocessor(Mat source) {
+		this.source = source;
+		processImage();
+		this.source = scaleWithAspectRatio(this.source, Configuration.sizeX, Configuration.sizeY);
 	}
 	
 	public void processImage() {
