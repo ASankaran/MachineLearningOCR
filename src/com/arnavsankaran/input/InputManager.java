@@ -35,6 +35,9 @@ public class InputManager {
 	
 	public String getNetworkPrediction() {
 		for(int i = 0; i < characterLocations.size(); i++) {
+			if( i > 0 && characterLocations.get(i).x - characterLocations.get(i - 1).x > 20) {
+				networkPrediction += ' ';
+			}
 			Rect rect = new Rect(characterLocations.get(i).x - 1, characterLocations.get(i).y - 1, characterLocations.get(i).width + 1, characterLocations.get(i).height + 1);
 			Mat source = Imgcodecs.imread(filepath);
 			Preprocessor preProc = new Preprocessor(source.submat(rect));
