@@ -34,7 +34,7 @@ public class MultiPreprocessor extends Preprocessor {
 		Collections.sort(letters, new Comparator<Rectangle>() {
 			public int compare(Rectangle r1, Rectangle r2) {
 				if(r1.y - r2.y > 20) {
-					return -1 * (r1.y - r2.y);
+					return 1 * (r1.y - r2.y);
 				} else if(r2.y - r1.y > 20) {
 					return -1 * (r2.y - r1.y);
 				}

@@ -35,7 +35,7 @@ public class InputManager {
 	
 	public String getNetworkPrediction() {
 		for(int i = 0; i < characterLocations.size(); i++) {
-			if( i > 0 && characterLocations.get(i).x - characterLocations.get(i - 1).x > 20) {
+			if( i > 0 && characterLocations.get(i).x - characterLocations.get(i - 1).x > 22) {
 				networkPrediction += ' ';
 			}
 			if(i > 0 && characterLocations.get(i).y - characterLocations.get(i - 1).y > 20) {
